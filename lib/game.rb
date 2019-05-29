@@ -1,41 +1,49 @@
-require 'ruby2d'
-require_relative 'constants/board'
-require_relative 'board'
-require_relative 'unit'
+require "ruby2d"
+require_relative "board"
+require_relative "./constants/terrain"
 
-set title: "Wargame"
-set width: PIXEL_WIDTH, height: PIXEL_HEIGHT
-
-
-
-board = Board.new(WIDTH, HEIGHT)
-board.display
-
-unit = Unit.new()
-board.place_unit(19, 19, unit)
-
-on :key_down do |event|
-  if event.key == 'w'
-    board.move_unit(unit.x, unit.y, 0, -1)
-  elsif event.key == 'a'
-    board.move_unit(unit.x, unit.y, -1, 0)
-  elsif event.key == 's'
-    board.move_unit(unit.x, unit.y, 0, 1)
-  elsif event.key == 'd'
-    board.move_unit(unit.x, unit.y, 1, 0)
+class Game
+  def initialize(board_height, board_width, *players)
+    self.draw_board(board_height, board_width)
+    self.register_input
+    @board = Board.new(board_height, board_width)
+    @players = players
+    Window.show
   end
+
+  def draw_board(board_height, board_width)
+    Window.set({
+        title: "wargame",
+        height: board_height * SIZE + 1,
+        width: board_width * SIZE + 1
+    })
+  end
+
+  def register_input
+    Window.on :mouse_down do |event|
+      self.select(event.x, event.y)
+    end
+  end
+   
+
+  def select x, y
+    puts x.to_s + ', ' + y.to_s
+    @board.select(y / SIZE, x / SIZE)
+  end
+  
+  def turn
+
+  end
+
+  def win
+
+  end
+
+  def lose
+
+  end
+
+
 end
 
-on :mouse_down do |event|
-  target_x = event.x / TILE_WIDTH
-  target_y = event.y / TILE_HEIGHT
-  board.select_tile(target_x, target_y)
-
-end
-
-update do
-end
-
-
-
-show
+game = Game.new(32, 32, 'test')
