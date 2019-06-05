@@ -23,7 +23,13 @@ class Board
   end
 
   def select row, col
-    @grid[row][col].select
+    @selected.deselect if @selected 
+    if @selected == @grid[row][col]
+      @selected = nil
+    else
+      @selected = @grid[row][col]
+      @selected.select
+    end
   end
 
 end

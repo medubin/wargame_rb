@@ -34,5 +34,10 @@ class Terrain
     @outline.z = 2
   end
 
+  def deselect
+    @outline.color = 'green'
+    @outline.z = 1
+  end
+
 
 end

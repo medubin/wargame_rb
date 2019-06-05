@@ -27,7 +27,6 @@ class Game
    
 
   def select x, y
-    puts x.to_s + ', ' + y.to_s
     @board.select(y / SIZE, x / SIZE)
   end
   
