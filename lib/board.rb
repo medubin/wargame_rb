@@ -1,5 +1,6 @@
 require "ruby2d"
 require_relative "terrain"
+require_relative "unit"
 
 class Board
     attr_reader :height, :width
@@ -9,6 +10,8 @@ class Board
     @width = width
     @grid = Array.new(height) { |row| Array.new(width) { |col| Terrain.new(row, col) } }
     self.graph_grid
+    unit = Unit.new(@grid[3][3])
+
   end
 
   def graph_grid
